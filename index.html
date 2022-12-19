@@ -36,9 +36,10 @@
                 background-color:#f6f6f6;
                 font-family:cursive;
             }
-            #main img{
+            .img-qr{
                 width:300px;
                 height:300px;
+                box-shadow:2px 2px 10px 1px black;
             }
             .section{
                 padding-top:100px;
@@ -53,7 +54,10 @@
             #channels{
                 text-align:center;
             }
-            .channel{
+            .img-channels{
+                width:300px;
+            }
+            .creator{
                 padding:20px;
                 border-radius:50px;
                 width:400px;
@@ -62,11 +66,22 @@
                 margin-bottom:20px;
                 margin-right:auto;
                 margin-left:auto;
-                background-color:#23272a;
+                background-image:url(./img/fondo-item.png);
                 color:white;
-                font-size:25px;
+                font-size:20px;
+                position:relative;
             }
-            .channel:hover{
+            .creator::after{
+                content:"Admin";
+                color:green;
+                font-size:15px;
+                position:absolute;
+                right:15px;
+            }
+            div.footer div:nth-child(4)::after{
+                content:"Técnico";
+            }
+            .creator:hover{
                 box-shadow:0 8px 15px rgb(0 0 0 / 50%);
             }
             .footer{
@@ -91,9 +106,12 @@
                     width:100%;
                     margin-bottom:50px;
                 }
-                #main img{
+                .img-qr{
+                    width:calc(100vw - 20px);
+                    height:calc(100vw - 20px);
+                }
+                .img-channels{
                     width:100vw;
-                    height:100vw;
                 }
             }
         </style>
@@ -108,39 +126,33 @@
                     <h3>Únete a nuestro canal a traves del código QR</h3>
                 </div>
                 <div class="section-inline">
-                    <img src="./img/qr-1.png" style="box-shadow:2px 2px 10px 1px black;">
+                    <a href="https://discord.com/invite/t4jsD2Rt" target="_blank">
+                        <img class="img-qr" src="./img/qr-1.png">
+                    </a>
                 </div>
             </div>
             <div style="background-color:#5865f2;height:2px;width:90%;margin:auto;"></div>
             <div class="section">
                 <h3 style="text-align:center;">Nuestros canales</h3>
                 <div id="channels">
-                    <div class="channel">General</div>
-                    <div class="channel">Memes</div>
-                    <div class="channel">Encuestas</div>
-                    <div class="channel">Canciones</div>
-                    <div class="channel">Minecraft</div>
-                    <div class="channel">Cumpleaños</div>
-                    <div class="channel">4ºESO, 1ºBachillerato...</div>
+                    <img class="img-channels" src="./img/channels-1.png">
                     <h4>¡Y muchos más!</h4>
                 </div>
             </div>
         </div>
         <div class="footer">
             <h4>Creado por:</h4>
-            <ul>
-                <li>Julio</li>
-                <li>Brais</li>
-                <li>Roberto</li>
-            </ul>
+            <div class="creator">Julio</div>
+            <div class="creator">Brais</div>
+            <div class="creator">Roberto</div>
         </div>
         <script>
-            const channels=document.querySelectorAll("div.channel");
+            const channels=document.querySelectorAll("div.creator");
             channels.forEach(function(channel){
                 channel.style.opacity="0";
             });
             window.addEventListener("scroll",effectFunction=function(){
-                if(window.scrollY>=1000){
+                if(window.scrollY>=1600){
                     let ch=0;
                     channels.forEach(function(channel){
                         channel.animate([
