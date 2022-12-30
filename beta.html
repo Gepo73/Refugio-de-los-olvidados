@@ -52,10 +52,22 @@
                 text-align:center;
             }
             #channels{
-                text-align:center;
+                margin:auto;
+                width:400px;
+                padding:20px;
+                background-color:#303136;
+                color:#96979c;
+                max-width:100%;
             }
-            .img-channels{
-                width:300px;
+            .channel-title::before{
+                content:attr(data-title);
+            }
+            .channel{
+                margin:10px;
+                margin-left:20px;
+            }
+            .channel::before{
+                content:"# ";
             }
             .creator{
                 padding:20px;
@@ -138,8 +150,21 @@
             <div class="section">
                 <h3 style="text-align:center;">Nuestros canales</h3>
                 <div id="channels">
-                    <img class="img-channels" src="./img/channels-1.png">
-                    <h4>¡Y muchos más!</h4>
+                    <div class="channel-title" data-title="&DownArrow; INFORMACIÓN">
+                        <div class="channel">&#128075;bienvenida</div>
+                        <div class="channel">&#128221;reglas</div>
+                        <div class="channel">&#127386;roles</div>
+                    </div>
+                    <div class="channel-title" data-title="&DownArrow; GRUPOS">
+                        <div class="channel">&#128233;enlace-de-invitación</div>
+                        <div class="channel">&#128229;otros-grupos</div>
+                    </div>
+                    <div class="channel-title" data-title="&DownArrow; NOTICIAS">
+                        <div class="channel">&#128276;anuncios</div>
+                        <div class="channel">&#128198;server-updates</div>
+                        <div class="channel">&#127874;cumpleaños</div>
+                        <div class="channel">&#10024;donaciones</div>
+                    </div>
                 </div>
             </div>
         </div>
