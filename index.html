@@ -51,11 +51,27 @@
                 width:49%;
                 text-align:center;
             }
-            #channels{
+            .section-down{
                 text-align:center;
+                margin-top:40px;
             }
-            .img-channels{
-                width:300px;
+            #channels{
+                margin:auto;
+                width:400px;
+                padding:20px;
+                background-color:#303136;
+                color:#96979c;
+                max-width:100%;
+            }
+            .channel-title::before{
+                content:attr(data-title);
+            }
+            .channel{
+                margin:10px;
+                margin-left:20px;
+            }
+            .channel::before{
+                content:"# ";
             }
             .creator{
                 padding:20px;
@@ -73,9 +89,10 @@
             }
             .creator::after{
                 content:"Admin";
-                color:green;
+                color:#0ca1b4;
                 font-size:15px;
                 position:absolute;
+                top:calc(50% - 9px);
                 right:15px;
             }
             div.footer div:nth-child(4)::after{
@@ -100,6 +117,47 @@
             .footer ul li{
                 text-align:justify;
             }
+            #alertDiv{
+                position:fixed;
+                background-color:white;
+                box-shadow:2px 2px 10px #245089;
+                border-radius:55px;
+                width:400px;
+                height:400px;
+                padding:40px;
+                top:calc(50vh - 200px);
+                left:calc(50% - 200px);
+                display:none;
+            }
+            #alertDiv button{
+                display:block;
+                width:200px;
+                height:40px;
+                margin:auto;
+                margin-top:100px;
+            }
+            nav{
+                position:sticky;
+                height:50px;
+                top:0;
+                display:flex;
+            }
+            nav a{
+                flex:1;
+                height:100%;
+            }
+            nav button{
+                width:100%;
+                height:100%;
+                border:0;
+                background-color:#96979c;
+                cursor:pointer;
+            }
+            nav > div{
+                background-color:#96979c;
+                display:flex;
+                align-items:center;
+            }
             @media(max-width:600px){
                 .logo{
                     background-image:url(./img/logo-without-background.png);
@@ -116,6 +174,17 @@
                 .img-channels{
                     width:100vw;
                 }
+                #alertDiv{
+                    width:200px;
+                    height:200px;
+                    top:calc(50vh - 100px);
+                    left:calc(50% - 100px);
+                    padding:30px;
+                }
+                #alertDiv button{
+                    width:100%;
+                    margin-top:20px;
+                }
             }
         </style>
     </head>
@@ -124,7 +193,13 @@
             <div class="logo"></div>
         </div>
         <div id="main">
-            <div class="section">
+            <nav>
+                <a href="#joinit"><button type="button">Únete</button></a>
+                <a href="#channels"><button type="button">Canales</button></a>
+                <a href="#creators"><button type="button">Creadores</button></a>
+                <div id="online-users">👁</div>
+            </nav>
+            <div class="section" id="joinit">
                 <div class="section-inline">
                     <h3>Únete a nuestro canal a través del código QR</h3>
                 </div>
@@ -133,21 +208,44 @@
                         <img class="img-qr" src="./img/qr-1.png">
                     </a>
                 </div>
+                <div class="section-down">
+                    <h3>O únete pulsando
+                        <a href="https://discord.com/invite/t4jsD2Rt" target="_blank">aquí</a>
+                    </h3>
+                </div>
             </div>
             <div style="background-color:#5865f2;height:2px;width:90%;margin:auto;"></div>
             <div class="section">
                 <h3 style="text-align:center;">Nuestros canales</h3>
                 <div id="channels">
-                    <img class="img-channels" src="./img/channels-1.png">
-                    <h4>¡Y muchos más!</h4>
+                    <div class="channel-title" data-title="&DownArrow; INFORMACIÓN">
+                        <div class="channel">&#128075;bienvenida</div>
+                        <div class="channel">&#128221;reglas</div>
+                        <div class="channel">&#127386;roles</div>
+                    </div>
+                    <div class="channel-title" data-title="&DownArrow; GRUPOS">
+                        <div class="channel">&#128233;enlace-de-invitación</div>
+                        <div class="channel">&#128229;otros-grupos</div>
+                    </div>
+                    <div class="channel-title" data-title="&DownArrow; NOTICIAS">
+                        <div class="channel">&#128276;anuncios</div>
+                        <div class="channel">&#128198;server-updates</div>
+                        <div class="channel">&#127874;cumpleaños</div>
+                        <div class="channel">&#10024;donaciones</div>
+                    </div>
                 </div>
             </div>
         </div>
-        <div class="footer">
+        <div class="footer" id="creators">
             <h4>Creado por:</h4>
-            <div class="creator">Julio</div>
-            <div class="creator">Brais</div>
-            <div class="creator">Roberto</div>
+            <div class="creator" data-instagram="@julio_g8631">Julio</div>
+            <div class="creator" data-instagram="@brais.mc">Brais</div>
+            <div class="creator" data-instagram="@rober_dp" data-rol="técnico">Roberto</div>
+        </div>
+        <div id="alertDiv">
+            <span name="name"></span> es el <span name="rol"></span> de este servidor.
+            ¡Síguele en Instagram <span name="instagram"></span>!
+            <button type="button" onclick="this.parentElement.style.display='none';">Atrás</button>
         </div>
         <script>
             const channels=document.querySelectorAll("div.creator");
@@ -171,6 +269,26 @@
                     window.removeEventListener("scroll",effectFunction);
                 }
             });
+            document.querySelectorAll("div.creator").forEach(function(creator){
+                creator.onclick=function(){
+                    document.querySelector("#alertDiv span[name='name']").textContent=this.textContent;
+                    document.querySelector("#alertDiv span[name='rol']").textContent=this.dataset.rol?this.dataset.rol:"admin";
+                    document.querySelector("#alertDiv span[name='instagram']").textContent=this.dataset.instagram;
+                    document.getElementById("alertDiv").style.display="block";
+                };
+            });
+            function loadOnlineUsers(){
+                let xhr=new XMLHttpRequest();
+                xhr.onload=function(){
+                    let usersNumber=JSON.parse(xhr.response).presence_count;
+                    document.getElementById("online-users").textContent+=usersNumber;
+                };
+                xhr.open("GET","https://discord.com/api/guilds/867392107105615872/widget.json");
+                xhr.send();
+            }
+            window.onload=function(){
+                loadOnlineUsers();
+            };
         </script>
     </body>
 </html>
