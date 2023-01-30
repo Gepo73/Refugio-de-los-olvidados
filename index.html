@@ -187,6 +187,16 @@
                 }
             }
         </style>
+        <style>
+            .copo{
+                width:20px;
+                height:20px;
+                background-color:blue;
+                border-radius:50%;
+                position:absolute;
+                top:calc(100vh + 50px);
+            }
+        </style>
     </head>
     <body>
         <div class="header">
@@ -289,6 +299,32 @@
             window.onload=function(){
                 loadOnlineUsers();
             };
+        </script>
+        <script>
+            const copos=[];
+            for(let a=0;a<10;a++){
+                let copo=document.createElement("div");
+                copo.classList.add("copo");
+                copo.style.left=Math.floor(Math.random()*98)+"%";
+                document.getElementById("main").appendChild(copo);
+                copos.push(copo);
+                copo.animate([
+                    {top:"calc(100vh + 50px)"},
+                    {top:"200vh"}
+                ],{
+                    duration:Math.floor(Math.random()*5000+1000),
+                    iterations:Infinity
+                });
+                setInterval(function(){
+                    copo.animate([
+                        {left:copo.left?copo.left:copo.style.left},
+                        {left:copo.left=parseInt(copo.style.left.split("%")[0])+Math.floor(Math.random()*50-25)+"%"}
+                    ],{
+                        duration:3000,
+                        iterations:1
+                    });
+                },3000);
+            }
         </script>
     </body>
 </html>
